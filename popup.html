@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ollama Cloud Usage</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <main class="shell" aria-live="polite">
+      <header class="topbar">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" role="img">
+            <path d="M9.2 21.8h14.2a5.6 5.6 0 0 0 .5-11.2A8.2 8.2 0 0 0 8.5 9.2a6.4 6.4 0 0 0 .7 12.6Z"/>
+            <path class="brand-cutout" d="M9.5 17.1h13M12.1 13.8h7.2"/>
+          </svg>
+        </div>
+        <div>
+          <p class="eyebrow">Ollama</p>
+          <h1>Cloud usage</h1>
+        </div>
+        <button id="refresh-button" class="icon-button" type="button" title="Refresh usage" aria-label="Refresh usage">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.34 5.66M20 5v6h-6"/></svg>
+        </button>
+      </header>
+
+      <section id="loading-view" class="loading-view">
+        <div class="skeleton skeleton-profile"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+      </section>
+
+      <section id="signed-out-view" class="state-view" hidden>
+        <div class="state-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M8 11V8a4 4 0 1 1 8 0v3M6 11h12v9H6z"/></svg>
+        </div>
+        <h2>Sign in to Ollama</h2>
+        <p>This extension uses the Ollama session already in Chrome. It never asks for or stores your password.</p>
+        <button id="sign-in-button" class="primary-button" type="button">Open Ollama sign in</button>
+      </section>
+
+      <section id="error-view" class="state-view" hidden>
+        <div class="state-icon state-icon-error" aria-hidden="true">!</div>
+        <h2>Usage is unavailable</h2>
+        <p id="error-message">Ollama did not return usage data.</p>
+        <button id="retry-button" class="primary-button" type="button">Try again</button>
+      </section>
+
+      <section id="usage-view" hidden>
+        <div class="profile-row">
+          <div class="avatar" id="avatar" aria-hidden="true">O</div>
+          <div class="profile-copy">
+            <strong id="username">Ollama user</strong>
+            <span id="email">—</span>
+          </div>
+          <span id="subscription" class="pill">—</span>
+        </div>
+
+        <p id="stale-notice" class="stale-notice" hidden></p>
+
+        <div class="usage-stack">
+          <article class="meter-card">
+            <div class="meter-heading">
+              <div>
+                <span class="meter-label">Session usage</span>
+                <span class="reset-label">5-hour reset <strong id="session-reset">—</strong></span>
+              </div>
+              <strong id="session-percent" class="percent">—</strong>
+            </div>
+            <div id="session-track" class="meter-track" role="progressbar" aria-label="Session usage" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <div id="session-fill" class="meter-fill meter-fill-session"></div>
+            </div>
+          </article>
+
+          <article class="meter-card">
+            <div class="meter-heading">
+              <div>
+                <span class="meter-label">Weekly usage</span>
+                <span class="reset-label">Weekly reset <strong id="weekly-reset">—</strong></span>
+              </div>
+              <strong id="weekly-percent" class="percent">—</strong>
+            </div>
+            <div id="weekly-track" class="meter-track" role="progressbar" aria-label="Weekly usage" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <div id="weekly-fill" class="meter-fill meter-fill-weekly"></div>
+            </div>
+          </article>
+        </div>
+
+        <section class="models-section">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">This week</p>
+              <h2>Models used</h2>
+            </div>
+            <span id="request-total" class="request-total">0 requests</span>
+          </div>
+          <div id="models-list" class="models-list"></div>
+          <p id="models-empty" class="empty-copy" hidden>No cloud model requests yet this week.</p>
+        </section>
+
+        <footer>
+          <span id="last-updated">Updated now</span>
+          <button id="open-settings-button" class="text-button" type="button">Open usage page</button>
+        </footer>
+      </section>
+    </main>
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>

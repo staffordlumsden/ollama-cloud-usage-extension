@@ -2,6 +2,8 @@
 
 A native Manifest V3 toolbar popup for Ollama Cloud usage. It reads the authenticated, server-rendered usage page from `ollama.com` using the Ollama session already in Chrome.
 
+**Project site:** https://staffordlumsden.github.io/ollama-cloud-usage-extension/
+
 The popup shows:
 
 - Ollama username and email
